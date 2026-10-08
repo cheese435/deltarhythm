@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <title>deltarhythm</title>
+        <!--<link
+            rel="icon"
+            type="image/x-icon"
+            href="assets/img/desktop/icons/favicon.ico"
+            />-->
+        <link rel="stylesheet" href="rhythm.css" />
+        <script src="jquery.js"></script>
+    </head>
+    <body id="bodyContainer">
+        <div
+            id="templateNoteHolder"
+            class="noteHolder"
+            style="visibility: hidden"
+        >
+            <img
+                src="assets/img/notes/fullNote.png"
+                class="note"
+                style="width: 100%; height: 100%"
+                draggable="false"
+            />
+        </div>
+        <input type="file" id="fileInput" accept=".map" />
+        <div id="gameHolder">
+            <div id="horizontalLane" class="lane">
+
+            </div>
+            <div id="verticalLane" class="lane">
+
+            </div>
+            <div id="battleBoxDiv">
+                <img
+                    src="assets/img/battleBox.png"
+                    id="battleBox"
+                    draggable="false"
+                />
+                <div id="soulHolder">
+                    <img
+                        src="assets/img/soul.png"
+                        id="soul"
+                        style="left: 45%; top: 45%"
+                        draggable="false"
+                    />
+                </div>
+            </div>
+        </div>
+        <script src="rhythm.js"></script>
+    </body>
+</html>
