@@ -1,5 +1,5 @@
 let stopLoops = false;
-let notes = ["1;H;L1;f9", "2;V;L2;f6", "3;H;L5;f12"];
+let notes = ["1;H;L1;f1","1;H;L2;f2","1;H;L3;f3","1;H;L4;f4","1;H;L5;f5","1;H;L6;f6","1;V;L1;f1","1;V;L2;f2","1;V;L3;f3","1;V;L4;f4","1;V;L5;f5","1;V;L6;f6"];
 const noteKey = {
   0: "blank",
   1: "halfNote",
@@ -15,17 +15,44 @@ const infoKey = {
   L5: "36%",
   L6: "69%",
 };
-
+const song = {bpm: 60}
 let decodedNotes = []
+const soul = document.getElementById("soul")
+let soulHealth = 100
+
+const mouse = {}
+addEventListener('mousemove', (event) => {
+  mouse.x = event.clientX
+  mouse.y = event.clientY
+})
+
+function findDirection(noteNum) {
+  if (infoKey[notes[noteNum].split(';')[1]] == "horizontalLane") {
+    if (Number(notes[noteNum].split(';')[2].split("")[1]) > 3) {
+      return ("right")
+    } else {
+      return ("left")
+    }
+  } else {
+    if (Number(notes[noteNum].split(';')[2].split("")[1]) > 3) {
+      return ("bottom")
+    } else {
+      return ("top")
+    }
+  }
+}
+
 function loadSongData() {
   let noteCounter = 0;
+
   while (noteCounter != notes.length) {
     decodedNotes[noteCounter] = {
       id: noteCounter,
       noteType: noteKey[notes[noteCounter].split(';')[0]],
       laneType: infoKey[notes[noteCounter].split(';')[1]],
-      trackType: notes[noteCounter].split(';')[2],
+      trackType: infoKey[notes[noteCounter].split(';')[2]],
       frame: notes[noteCounter].split(';')[3].split('f')[1],
+      moveDirection: findDirection(noteCounter),
     }
     noteCounter++;
   }
@@ -38,22 +65,19 @@ function songLoop(timeStamp) {
   const timeElapsed = timeStamp - lastTimeCounted;
   if (timeElapsed >= 100) {
     let noteCounter = 0;
+    //spawn new notes
     while (noteCounter != notes.length) {
       if (decodedNotes[noteCounter].frame == frame) {
         let clone = document.getElementById('templateNoteHolder').cloneNode(true);
         clone.style.visibility = "visible"
-        document.getElementById(decodedNotes[noteCounter].laneType).appendChild(clone)
+        clone.id = "note" + decodedNotes[noteCounter].id
 
+        //if (Number(decodedNotes[noteCounter].trackType.split("")[1]) > 3) {
+          //  clone.style.right = "0%"
         if (decodedNotes[noteCounter].laneType == "horizontalLane") {
-          clone.style.top = infoKey[decodedNotes[noteCounter].trackType]
-          if (Number(decodedNotes[noteCounter].trackType.split("")[1]) > 3) {
-            clone.style.left = "91.5%"
-          }
+          clone.style.top = decodedNotes[noteCounter].trackType
         } else {
-          clone.style.left = infoKey[decodedNotes[noteCounter].trackType]
-          if (Number(decodedNotes[noteCounter].trackType.split("")[1]) > 3) {
-            clone.style.top = "84%"
-          }
+          clone.style.left = decodedNotes[noteCounter].trackType
         }
         document.getElementById(decodedNotes[noteCounter].laneType).appendChild(clone)
       }
@@ -61,6 +85,34 @@ function songLoop(timeStamp) {
     }
     lastTimeCounted = timeStamp;
     frame++
+    //move notes
+    for (let elementToMove of Array.from(
+      document.getElementsByClassName("noteHolder"),
+    )) {
+      if (elementToMove.id != "templateNoteHolder") {
+        let noteNum = elementToMove.id.split("note")[1]
+            if (Number(elementToMove.style[decodedNotes[noteNum].moveDirection].split("%")[0]) >= 100) {
+              elementToMove.remove()
+            } else {
+              elementToMove.style[decodedNotes[noteNum].moveDirection] = (Number(elementToMove.style[decodedNotes[noteNum].moveDirection].split("%")[0]) + 2) + "%"
+            }
+          //check if notes are touching the soul (player)
+        const soulBoundingBox = soul.getBoundingClientRect()
+        const elementBoundingBox = elementToMove.getBoundingClientRect()
+        if (
+            elementBoundingBox.x + elementBoundingBox.width >= soulBoundingBox.x &&
+            elementBoundingBox.x <= soulBoundingBox.x + soulBoundingBox.width &&
+            elementBoundingBox.y + elementBoundingBox.height >= soulBoundingBox.y &&
+            elementBoundingBox.y <= soulBoundingBox.y + soulBoundingBox.height
+        ) {
+            soulHealth -= 20
+            elementToMove.remove()
+          }
+        }
+    }
+    if (soulHealth <= 0) {
+      console.log("dead!")
+    }
   }
   if (stopLoops != true) {
     requestAnimationFrame(songLoop);
@@ -99,7 +151,6 @@ function previewFile() {
   }
 }
 
-let soul = document.getElementById("soul");
 let counterNumber = 0;
 loadSongData()
 let keysDown = [];

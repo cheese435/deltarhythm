@@ -5,17 +5,34 @@ html {
     -webkit-user-drag: none;
     user-select: none;
     overflow: hidden;
+    background-color: black;
 }
 h1 {
     pointer-events: none;
     margin: 0%;
 }
+#uiHolder {
+    background-color: black;
+    width: 38%;
+    height: 100%;
+    right: 0%;
+    top: 0%;
+    position: absolute;
+    transform-origin: center;
+    z-index: 6;
+}
+.noteStopper {
+    background-color: black;
+    position: absolute;
+    transform-origin: center;
+    z-index: 5;
+}
 #gameHolder {
     background-color: black;
-    width: 95vw;
-    height: 90vh;
-    left: 0%;
-    top: 0%;
+    width: 55vw;
+    height: 55vw;
+    left: 7%;
+    top: 1%;
     position: absolute;
     transform-origin: center;
 }
@@ -24,6 +41,9 @@ h1 {
     justify-content: center;
     align-items: center;
     height: 100%;
+    top: 0%;
+    position: absolute;
+    left: 25%;
 }
 #battleBox {
     z-index: 1;
@@ -46,31 +66,40 @@ h1 {
     position: absolute;
     transform-origin: center;
 }
-.lane {
+#bg {
+    z-index: 0;
+    width: 30vw;
+    height: 30vw;
     position: absolute;
+    transform-origin: center;
+}
+.lane {
+    position: relative;
     transform-origin: center;
     z-index: 5;
 }
 #verticalLane {
-    left: 34%;
     width: 30vw;
-    height: 90vh;
-    background-color: rgba(0, 255, 255, 0.2);
+    bottom: 53%;
+    height: 100%;
+    left: 25%;
+    /*background-color: rgba(0, 255, 255, 0.2);*/
 }
 #horizontalLane {
-    top: 21%;
-    width: 95vw;
+    top: 23.5%;
+    width: 100%;
     height: 52vh;
-    background-color: rgba(255, 0, 255, 0.2);
+    /*background-color: rgba(255, 0, 255, 0.2);*/
 }
 .note {
     position: absolute;
     transform-origin: center;
+    z-index: 1;
 }
 .noteHolder {
     width: 8vw;
     height: 8vw;
-    background-color: red;
+    /*/*background-color: red;*/
     position: absolute;
     transform-origin: center;
 }

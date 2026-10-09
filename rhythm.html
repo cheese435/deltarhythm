@@ -14,7 +14,7 @@
         <div
             id="templateNoteHolder"
             class="noteHolder"
-            style="visibility: hidden"
+            style="visibility: hidden; z-index: 1;"
         >
             <img
                 src="assets/img/notes/fullNote.png"
@@ -25,12 +25,14 @@
         </div>
         <input type="file" id="fileInput" accept=".map" />
         <div id="gameHolder">
-            <div id="horizontalLane" class="lane">
-
-            </div>
-            <div id="verticalLane" class="lane">
-
-            </div>
+            <img
+                src="assets/img/background.png"
+                id="bg"
+                style="width: 100%; height: 100%; visibility: visible;"
+                draggable="false"
+            />
+            <div id="horizontalLane" class="lane"></div>
+            <div id="verticalLane" class="lane"></div>
             <div id="battleBoxDiv">
                 <img
                     src="assets/img/battleBox.png"
@@ -47,6 +49,8 @@
                 </div>
             </div>
         </div>
+        <div id="uiHolder"></div>
+        <div class="noteStopper" style="width: 7%; height: 100%; left: 0%; top: 0%;"></div>
         <script src="rhythm.js"></script>
     </body>
 </html>
