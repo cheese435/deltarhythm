@@ -1,6 +1,6 @@
 # deltarhythm
 
-My spin on a rhythm game! Inspired by Mew Mew's fight in Deltarune chapter 5 and a lot of other rhythm games! **WIP**
+My spin on a rhythm game! (or, I guess a dodging game....) Inspired by Mew Mew's fight in Deltarune chapter 5 and a lot of other rhythm games! **WIP**
 
 Some assets are *not mine* and belong to their respective owners!
 
