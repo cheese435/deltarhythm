@@ -1,5 +1,7 @@
 let stopLoops = false;
-let notes = ["1;H;L1;f1","1;H;L2;f2","1;H;L3;f3","1;H;L4;f4","1;H;L5;f5","1;H;L6;f6","1;V;L1;f1","1;V;L2;f2","1;V;L3;f3","1;V;L4;f4","1;V;L5;f5","1;V;L6;f6"];
+let notes = ["1;H;L1;f1", "1;H;L2;f1", "1;H;L3;f1", "1;H;L4;f1", "1;H;L5;f1", "1;H;L6;f1", "1;V;L1;f1", "1;V;L2;f1", "1;V;L3;f1", "1;V;L4;f1", "1;V;L5;f1", "1;V;L6;f1"];
+let listOfNotes = {}
+let songInfo = {}
 const noteKey = {
   0: "blank",
   1: "halfNote",
@@ -40,6 +42,62 @@ function findDirection(noteNum) {
       return ("top")
     }
   }
+}
+let text;
+let music;
+const fileInput = document.getElementById("fileInput");
+fileInput.addEventListener("change", async function () {
+  try {
+    for (const file of fileInput.files) {
+      const zip = await JSZip.loadAsync(file);
+      if (
+        "notes.txt" in zip.files &&
+        "art/cover.png" in zip.files &&
+        "sng.mp3" in zip.files &&
+        "fileInfo.txt" in zip.files
+      ) {
+        //delete other playing music
+        if (music) {
+          music.pause()
+        }
+        //load cover art url
+        const blob = await zip.file("art/cover.png").async("blob")
+        //load songinfo
+        text = await zip.file("fileInfo.txt").async("string")
+        text = text.split(",")
+        //load notes
+        let outputNotes = await zip.file("notes.txt").async("string")
+        listOfNotes[listOfNotes.length] = outputNotes.split(",")
+        //load song
+        const raw = await zip.file("sng.mp3").async("blob")
+        let sngBlob = new Blob([raw], { type: "audio/mpeg" })
+        sngBlob = URL.createObjectURL(sngBlob)
+        songInfo[text[0].split(":")[1].split("\n")[0]] = {
+          name: text[0].split(":")[1].split("\n")[0],
+          creator: text[1].split(":")[1].split("\n")[0],
+          stars: text[2].split(":")[1].split("\n")[0],
+          songSrc: sngBlob,
+          imgSrc: URL.createObjectURL(blob),
+        }
+        //new Audio(sngBlob).play()
+        //load into ui
+        let clone = document.getElementById('templateSongHolder').cloneNode(true);
+        clone.style.visibility = "visible"
+        //clone.style.top = songInfo.length - 1 * 10
+        clone.querySelector(".cover").src = URL.createObjectURL(blob)
+        clone.querySelector(".sngName").textContent = text[0].split(":")[1].split("\n")[0]
+        document.getElementById("uiHolder").appendChild(clone)
+      } else {
+        console.log("JSZip ERROR: missing files!")
+        //showError("We can't seem to decode that file!")
+      }
+    }
+  } catch (err) {
+    console.log("JSZip ERROR:", err);
+  }
+});
+function loadSongs() {
+
 }
 
 function loadSongData() {
@@ -129,25 +187,6 @@ function removeNotes() {
     if (elementToHide.id != "noteHolder") {
       elementToHide.remove();
     }
-  }
-}
-
-const fileInput = document.getElementById("fileInput");
-fileInput.addEventListener("change", previewFile);
-function previewFile() {
-  const file = fileInput.files[0]; //grab first (and only) file
-  const reader = new FileReader(); //setup reader
-
-  reader.addEventListener("load", () => {
-    //reader script
-    notes = reader.result.replace("\n", "").split(",");
-    noteInfo = notes[0].split(";");
-    spawnNotes();
-  });
-
-  if (file) {
-    //if file, run reader
-    reader.readAsText(file);
   }
 }
 

@@ -109,3 +109,33 @@ h1 {
     position: absolute;
     transform-origin: center;
 }
+.cover {
+    z-index: 1;
+    position: relative;
+    width: 70%;
+    height: 98%;
+    left: 55%;
+    bottom: 99%;
+}
+.sngName {
+    position: relative;
+    color: white;
+    z-index: 3;
+    width: 33%;
+    height: 36%;
+    bottom: 171%;
+    left: 27%;
+}
+.songButton {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    position: relative;
+    top:3%;
+}
+.songHolder {
+    width: 60%;
+    height: 10%;
+    left: 25%;
+    position: relative;
+}

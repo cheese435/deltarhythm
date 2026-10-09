@@ -9,6 +9,7 @@
             />-->
         <link rel="stylesheet" href="rhythm.css" />
         <script src="jquery.js"></script>
+        <script src="jszip.min.js"></script>
     </head>
     <body id="bodyContainer">
         <div
@@ -23,7 +24,7 @@
                 draggable="false"
             />
         </div>
-        <input type="file" id="fileInput" accept=".map" />
+        <input type="file" id="fileInput" accept=".deltazip" multiple style="z-index: 6; color: white;" />
         <div id="gameHolder">
             <img
                 src="assets/img/background.png"
@@ -49,7 +50,21 @@
                 </div>
             </div>
         </div>
-        <div id="uiHolder"></div>
+        <div id="uiHolder">
+            <div id="templateSongHolder" class="songHolder" style="visibility: hidden;">
+                <img
+                    src="assets/img/songButton.png"
+                    class="songButton"
+                    draggable="false"
+                />
+                <img
+                    src="assets/img/cover.png"
+                    class="cover"
+                    draggable="false"
+                />
+                <h1 class="sngName">name</h1>
+            </div>
+        </div>
         <div class="noteStopper" style="width: 7%; height: 100%; left: 0%; top: 0%;"></div>
         <script src="rhythm.js"></script>
     </body>
