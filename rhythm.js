@@ -22,8 +22,10 @@ const dodgeMode = false
 let decodedNotes = []
 const soul = document.getElementById("soul")
 let soulHealth = 100
+const scriptUrl = document.currentScript.src;
+const map = new URL('./maps/Ochame Kiou [DEMO].deltazip', scriptUrl);
 
-async function loadZipFromRoot(path = "/maps/Ochame Kiou [DEMO].deltazip") {
+async function loadZipFromRoot(path = map) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`Couldn't fetch ${path}: ${res.status}`);
 
