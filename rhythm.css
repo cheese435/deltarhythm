@@ -125,6 +125,9 @@ h1 {
     height: 36%;
     bottom: 171%;
     left: 27%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: medium;
 }
 .songButton {
     width: 100%;
@@ -135,7 +138,7 @@ h1 {
 }
 .songHolder {
     width: 60%;
-    height: 10%;
+    height: 13%;
     left: 25%;
     position: relative;
 }
