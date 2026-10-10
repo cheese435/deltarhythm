@@ -23,7 +23,7 @@ let decodedNotes = []
 const soul = document.getElementById("soul")
 let soulHealth = 100
 const scriptUrl = document.currentScript.src;
-const map = new URL('./maps/Ochame Kiou [DEMO].deltazip', scriptUrl);
+const map = new URL('./deltarhythm/maps/Ochame Kiou [DEMO].deltazip', scriptUrl);
 
 async function loadZipFromRoot(path = map) {
   const res = await fetch(path);
