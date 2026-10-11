@@ -1,17 +1,12 @@
 # deltarhythm
 
-My spin on a rhythm game! (or, I guess a dodging game....) Inspired by Mew Mew's fight in Deltarune chapter 5 and a lot of other rhythm games! **WIP**
+My spin on a rhythm game! (or, I guess a collection game....) Inspired by Mew Mew's fight in Deltarune chapter 5 and a lot of other rhythm games!
 
 Some assets are *not mine* and belong to their respective owners!
 
-## TO DO
-* Add HUD and make the player to lose health when incorrectly hitting keys (blocks spamming)
-* Add an editor to create maps instead of having to write them by hand
+Made for [Terra](terra.hackclub.com)
 
-## DONE
-* Song loading
-* Basic movement
-* (some) UI
-* Core gameplay
+Arrow keys as controls,
+ESC for pause menu!
 
 You can view the live demo [here](https://cheese435.github.io/deltarhythm/rhythm.html).
