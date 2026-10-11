@@ -1,11 +1,18 @@
+/* Made for Terra! (https://terra.hackclub.com/) Built in ~11hrs */
+
 body {
     overflow: hidden;
+}
+@font-face {
+    font-family: mainFont;
+    src: url("assets/fonts/pixelSans.ttf");
 }
 html {
     -webkit-user-drag: none;
     user-select: none;
     overflow: hidden;
     background-color: black;
+    font-family: mainFont;
 }
 h1 {
     pointer-events: none;
@@ -66,7 +73,7 @@ h1 {
     position: absolute;
     transform-origin: center;
 }
-#bg {
+.bg {
     z-index: 0;
     width: 30vw;
     height: 30vw;
@@ -113,32 +120,86 @@ h1 {
     z-index: 1;
     position: relative;
     width: 70%;
-    height: 98%;
+    height: 99.5%;
     left: 55%;
-    bottom: 99%;
+    bottom: 98.5%;
 }
 .sngName {
     position: relative;
     color: white;
     z-index: 3;
-    width: 33%;
-    height: 36%;
-    bottom: 171%;
-    left: 27%;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: medium;
+    width: 54%;
+    height: 32%;
+    bottom: 168%;
+    left: 5%;
+    font-size: 1.22vw;
+    padding: 0.5%;
+}
+.starValue {
+    position: relative;
+    color: white;
+    z-index: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0.5%;
+    width: 12%;
+    height: 31%;
+    bottom: 203%;
+    left: -12.5%;
+    font-size: 2.5vw;
+    text-align: center;
 }
 .songButton {
-    width: 100%;
-    height: 100%;
+    width: 38vw;
+    right: 41%;
     z-index: 2;
     position: relative;
     top:3%;
 }
 .songHolder {
     width: 60%;
-    height: 13%;
+    height: 17%;
     left: 25%;
     position: relative;
+}
+.keys {
+    width: 10%;
+    height: auto;
+    position: absolute;
+}
+.text {
+    position: relative;
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+}
+.noteAccuracy {
+    width: 4vw;
+    height: 4vw;
+    z-index: 2;
+    top: 25%;
+    left: 25%;
+    position: absolute;
+    transform-origin: center;
+}
+#settings {
+    width: 20%;
+    left: 0%;
+    bottom: 0%;
+    background-color: black;
+    height: 34%;
+    position: absolute;
+    transform-origin: center;
+    z-index: 7;
+}
+.settingsItem {
+    width: 100%;
+    left: 0%;
+    height: 10%;
+    top: 0%;
+    position: relative;
+    transform-origin: center;
 }

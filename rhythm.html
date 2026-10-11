@@ -1,36 +1,25 @@
 <!doctype html>
+<!-- Made for Terra! (https://terra.hackclub.com/) Built in ~11hrs -->
 <html>
     <head>
         <title>deltarhythm</title>
-        <!--<link
+        <link
             rel="icon"
             type="image/x-icon"
-            href="assets/img/desktop/icons/favicon.ico"
-            />-->
+            href="assets/img/favicon.ico"
+            />
         <link rel="stylesheet" href="rhythm.css" />
         <script src="jquery.js"></script>
         <script src="jszip.min.js"></script>
     </head>
     <body id="bodyContainer">
          <!-- TEMPLATES -->
-        <div id="templateSongHolder" class="songHolder" style="visibility: hidden;">
-            <img
-                src="assets/img/songButton.png"
-                class="songButton"
-                draggable="false"
-            />
-            <img
-                src=""
-                class="cover"
-                draggable="false"
-            />
-            <h1 class="sngName">name</h1>
-        </div>
         <div
             id="templateNoteHolder"
             class="noteHolder"
             style="visibility: hidden; z-index: 1;"
         >
+            <div class="noteAccuracy"></div>
             <img
                 src="assets/img/notes/fullNote.png"
                 class="note"
@@ -39,11 +28,20 @@
             />
         </div>
         <!-- VISIBLE HTML -->
-        <input type="file" id="fileInput" accept=".deltazip" multiple style="z-index: 6; color: white;" />
+        <input type="file" id="fileInput" accept=".deltazip" multiple style="color: white; position: absolute; z-index: 7; bottom: 55%; left: 1.8%; width: 3.6%;" />
         <div id="gameHolder">
+            <div id="gameOver" style="z-index: 5; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.8); position: absolute; bottom: 0%; left: 0%; visibility: hidden;">
+                <img style="width: 100%; height: auto; position: absolute; bottom: 53%; left: 0%;" draggable="false" src="assets/img/gameover.png">
+                <h1 class="text" style="width: 100%; font-size: 3vw; height: 8%; top: 55%;">You placed....</h1>
+                <h1 class="text" id="displayResults" style="width: 100%; font-size: 3vw; height: 8%; visibility: hidden; top: 55%;">OK</h1>
+            </div>
+            <div id="pauseScreen" style="z-index: 5; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.8); position: absolute; bottom: 0%; left: 0%; visibility: hidden;">
+                <img style="height: auto; position: absolute; width: 40%; bottom: 80%; left: 32%;" draggable="false" src="assets/img/paused.png">
+                <h1 class="text" style="width: 100%; font-size: 3vw; height: 8%; top: 55%;">press ESC to unpause!</h1>
+            </div>
             <img
                 src="assets/img/background.png"
-                id="bg"
+                class="bg"
                 style="width: 100%; height: 100%; visibility: visible;"
                 draggable="false"
             />
@@ -64,10 +62,64 @@
                     />
                 </div>
             </div>
+            <div id="healthBarBackground" style="background-color: slategray; width: 32%; height: 3%; bottom: 3%; right: 3%; position: absolute;">
+                <div id="healthBar" style="background-color: seagreen; position: absolute; width: 17.3vw; height: 1.3vw; bottom: 10%; right: 1%; z-index: 2;"></div>
+                <div id="healthBarBackground" style="background-color: indianred; position: absolute; width: 17.3vw; height: 1.3vw; bottom: 10%; right: 1%; z-index: 1;"></div>
+            </div>
         </div>
         <div id="uiHolder">
+            <div id="templateSongHolder" class="songHolder" onclick="loadSong('OchameKinouDemo')" style="visibility: visible;">
+                <img
+                    src="assets/img/songButton.png"
+                    class="songButton"
+                    draggable="false"
+                />
+                <img
+                    src="maps/Ochame Kinou [DEMO]/art/cover.png"
+                    class="cover"
+                    draggable="false"
+                />
+                <h1 class="sngName">Ochame Kinou [DEMO]</h1>
+                <h1 class="starValue">1</h1>
+            </div>
         </div>
-        <div class="noteStopper" style="width: 7%; height: 100%; left: 0%; top: 0%;"></div>
+        <div id="introDiv" style="z-index: 50; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.8); position: absolute; bottom: 0%; left: 0%;">
+            <h1 class="text" style="font-size: 2vw; width: 30%; height: 15%; top: 16%; left: 35%;">Use the arrow keys to play!</h1>
+            <img src="assets/img/logo.png" id="logo" style="right: 35%; top: 5%; width: 30%; height: auto; position: absolute;" draggable="false">
+            <img src="assets/img/keys/down.png" id="keyDown" class="keys" style="left: 45%; top: 47%;" draggable="false">
+            <img src="assets/img/keys/up.png" id="keyUp" class="keys" style="left: 45%; top: 29%;" draggable="false">
+            <img src="assets/img/keys/right.png" id="keyRight" class="keys" style="left: 55%; top: 47%;" draggable="false">
+            <img src="assets/img/keys/left.png" id="keyLeft" class="keys" style="left: 35%; top: 47%;" draggable="false">
+            <img src="assets/img/notes/fullNote.png" id="displayNote" style="right: 7%; top: 55%; width: 7%; height: auto; position: absolute; z-index: 2;" draggable="false">
+            <img src="assets/img/soul.png" id="displaySoul" style="right: 8%; top: 40%; width: 5%; height: auto; position: absolute;" draggable="false">
+            <img src="assets/img/background.png" id="displayBox" style="right: 1%; top: 36%; width: 20%; height: auto; position: absolute;" draggable="false">
+            <h1 class="text" style="font-size: 1.5vw; width: 20%; height: 8%; top: 12%; left: 79%;">Touch the notes with your SOUL to not lose points.</h1>
+            <img src="assets/img/keys/ok.png" id="okKey" onclick="fadeIntro = true" class="keys" style="left: 43%; top: 72%; width: 15%;" draggable="false">
+        </div>
+        <div class="noteStopper" style="width: 7%; height: 100%; left: 0%; top: 0%;">
+            <h1 id="comboDisplay" class="text" style="font-size: 1.3vw; width: 100%; height: 3%; top: 2%; left: 0%;">combo</h1>
+            <h1 id="comboCounter" class="text" style="font-size: 2vw; width: 100%; height: 5%; top: 1.5%; left: 0%;">0</h1>
+            <h1 id="missDisplay" class="text" style="font-size: 1.3vw; width: 100%; height: 3%; top: 2%; left: 0%;">misses</h1>
+            <h1 id="missCounter" class="text" style="font-size: 2vw; width: 100%; height: 5%; top: 1.5%; left: 0%;">0</h1>
+            <h1 id="accuracyDisplay" class="text" style="font-size: 1.3vw; width: 100%; height: 3%; top: 2%; left: 0%;">accuracy</h1>
+            <h1 id="accuracyCounter" class="text" style="font-size: 2vw; width: 100%; height: 5%; top: 1.5%; left: 0%;">100%</h1>
+            <h1 id="scoreDisplay" class="text" style="font-size: 1.3vw; width: 100%; height: 3%; top: 2%; left: 0%;">score</h1>
+            <h1 id="scoreCounter" class="text" style="font-size: 2vw; width: 100%; height: 5%; top: 1.5%; left: 0%;">0</h1>
+            <img id="settingsCog" class="keys" style="left: 25%; top: 35%; width: 50%;" src="assets/img/cog.png" onclick="if (document.getElementById('settings').style.visibility == 'visible') {document.getElementById('settings').style.visibility = 'hidden'} else {document.getElementById('settings').style.visibility = 'visible'} ">
+        </div>
+        <div id="settings" style="visibility: hidden;">
+            <img
+                src="assets/img/background.png"
+                class="bg"
+                style="width: 100%; height: 100%;"
+                draggable="false"
+            />
+            <div class="settingsItem" style="top: 3%;" id="volumeControll">
+                <h1 class="text" style="font-size: 2vw; width: 100%; height: 100%; top: 6%;">Volume</h1>
+                <img src="assets/img/keys/subtract.png" id="keySubtract" class="keys" onclick="settings('volumeDown')" style="left: 15%; top: 15%;" draggable="false">
+                <img src="assets/img/keys/add.png" id="keyAdd" class="keys" onclick="settings('volumeUp')" style="left: 75%; top: 15%;" draggable="false">
+            </div>
+        </div>
         <script src="rhythm.js"></script>
     </body>
 </html>
